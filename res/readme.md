@@ -1,4 +1,5 @@
 Assets for Tixel.
+This folder contains the raw resources. For game files, see the assets folder.
 
 Fonts, textures and sound effects by [Kenney](https://kenney.nl).
 Licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
