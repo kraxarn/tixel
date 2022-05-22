@@ -3,7 +3,10 @@ package com.kraxarn.tixel.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
+import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -13,12 +16,16 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.kraxarn.tixel.Colors
 import com.kraxarn.tixel.enums.Direction
+import com.kraxarn.tixel.extensions.draw
 import com.kraxarn.tixel.skin.MenuSkin
 import ktx.actors.onClick
 import ktx.actors.plusAssign
 import ktx.app.KtxScreen
 import ktx.assets.disposeSafely
+import ktx.assets.toInternalFile
+import ktx.graphics.use
 import kotlin.math.abs
+import kotlin.random.Random
 
 class MenuScreen : KtxScreen
 {
@@ -31,6 +38,12 @@ class MenuScreen : KtxScreen
 	private val arrow = Image(skin, MenuSkin.arrow)
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
+
+	private val playerAtlas = TextureAtlas("atlas/player.atlas".toInternalFile())
+	private val player = Animation(0.15F, playerAtlas.findRegions("running"))
+	private var playerTime = 0F
+	private var playerPos = Vector2()
+	private val playerSize = Vector2(72f, 72f)
 
 	private var current = 0
 	private var arrowDirection = Direction.RIGHT
@@ -60,6 +73,8 @@ class MenuScreen : KtxScreen
 		}
 
 		Gdx.input.inputProcessor = stage
+
+		resetPlayerPosition()
 	}
 
 	override fun render(delta: Float)
@@ -67,6 +82,7 @@ class MenuScreen : KtxScreen
 		ScreenUtils.clear(Colors.background)
 
 		updateArrow()
+		updatePlayer(delta)
 
 		stage.act(delta)
 		stage.draw()
@@ -108,6 +124,31 @@ class MenuScreen : KtxScreen
 		{
 			arrowDirection = Direction.LEFT
 		}
+	}
+
+	private fun updatePlayer(delta: Float)
+	{
+		playerTime += delta
+		playerPos.x -= 1.75f
+
+		if (playerPos.x < -player.getKeyFrame(0f).regionWidth)
+		{
+			resetPlayerPosition()
+		}
+
+		batch.use {
+			it.draw(player.getKeyFrame(playerTime, true), playerPos, playerSize)
+		}
+	}
+
+	private fun resetPlayerPosition()
+	{
+		val screenHeight = stage.viewport.screenHeight
+		val min = (screenHeight * 0.05f).toInt()
+		val max = (screenHeight * 0.95f).toInt()
+
+		val screenWidth = stage.viewport.screenWidth
+		playerPos.set((screenWidth + playerSize.x), Random.Default.nextInt(min, max).toFloat())
 	}
 
 	override fun resize(width: Int, height: Int)
