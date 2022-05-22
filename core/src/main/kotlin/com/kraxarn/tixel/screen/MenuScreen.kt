@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.g2d.Animation
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -164,7 +163,7 @@ class MenuScreen : KtxScreen
 		val max = (screenHeight * 0.95f).toInt()
 
 		val screenWidth = stage.viewport.screenWidth
-		playerPos.set((screenWidth + playerSize.x), Random.Default.nextInt(min, max).toFloat())
+		playerPos.set(screenWidth.toFloat(), Random.Default.nextInt(min, max).toFloat())
 	}
 
 	override fun resize(width: Int, height: Int)
