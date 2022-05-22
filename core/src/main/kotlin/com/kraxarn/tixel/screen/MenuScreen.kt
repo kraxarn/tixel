@@ -30,8 +30,6 @@ import kotlin.random.Random
 
 class MenuScreen : KtxScreen
 {
-	private val batch = SpriteBatch()
-
 	private val stage = Stage(ExtendViewport(1280F, 720F))
 	private val skin = MenuSkin()
 	private val layout = Table(skin)
@@ -145,7 +143,7 @@ class MenuScreen : KtxScreen
 			resetPlayerPosition()
 		}
 
-		batch.use {
+		stage.batch.use {
 			it.draw(player.getKeyFrame(playerTime, true), playerPos, playerSize)
 		}
 	}
@@ -177,6 +175,6 @@ class MenuScreen : KtxScreen
 	override fun dispose()
 	{
 		skin.disposeSafely()
-		batch.disposeSafely()
+		stage.disposeSafely()
 	}
 }
