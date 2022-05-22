@@ -86,7 +86,7 @@ class MenuScreen : KtxScreen
 			0 -> startGame.y
 			1 -> exitGame.y
 			else -> 0F
-		}
+		} + startGame.height / 2 - arrow.height / 2
 	}
 
 	override fun resize(width: Int, height: Int)
