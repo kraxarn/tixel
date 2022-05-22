@@ -1,4 +1,4 @@
-package com.kraxarn.tixel.skin
+package com.kraxarn.tixel.skins
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont

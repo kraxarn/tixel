@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.kraxarn.tixel.Colors
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.draw
-import com.kraxarn.tixel.skin.MenuSkin
+import com.kraxarn.tixel.skins.MenuSkin
 import ktx.actors.onClick
 import ktx.actors.plusAssign
 import ktx.app.KtxScreen
