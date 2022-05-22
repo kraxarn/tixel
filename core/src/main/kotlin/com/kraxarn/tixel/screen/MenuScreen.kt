@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -33,7 +35,6 @@ class MenuScreen : KtxScreen
 	private val exitGame = TextButton("Exit game", skin)
 
 	private var current = 0
-	private var arrowDirection = Direction.RIGHT
 
 	init
 	{
@@ -55,7 +56,7 @@ class MenuScreen : KtxScreen
 
 		if (!Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen))
 		{
-			arrow.x = 76F
+			arrow.x = 82F
 			stage += arrow
 		}
 
@@ -90,23 +91,14 @@ class MenuScreen : KtxScreen
 			else -> 0F
 		} + startGame.height / 2 - arrow.height / 2
 
-		val offset = abs(arrow.x - 82F)
-		if (arrowDirection == Direction.LEFT)
-		{
-			arrow.moveBy(-0.5F - (offset / 10F), 0F)
-		}
-		else
-		{
-			arrow.moveBy(0.5F + (offset / 10F), 0F)
-		}
-
+		val duration = 0.4F
 		if (arrow.x <= 64)
 		{
-			arrowDirection = Direction.RIGHT
+			arrow += moveTo(82F, arrow.y, duration, Interpolation.circleIn)
 		}
 		else if (arrow.x >= 82)
 		{
-			arrowDirection = Direction.LEFT
+			arrow += moveTo(64F, arrow.y, duration, Interpolation.circleOut)
 		}
 	}
 
