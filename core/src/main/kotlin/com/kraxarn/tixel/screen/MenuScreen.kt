@@ -140,7 +140,7 @@ class MenuScreen : KtxScreen
 		playerTime += delta
 		playerPos.x -= 1.75f
 
-		if (playerPos.x < -player.getKeyFrame(0f).regionWidth)
+		if (playerPos.x < -playerSize.x)
 		{
 			resetPlayerPosition()
 		}
