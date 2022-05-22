@@ -135,7 +135,7 @@ class MenuScreen : KtxScreen
 	private fun updatePlayer(delta: Float)
 	{
 		playerTime += delta
-		playerPos.x -= 1.75f
+		playerPos.x -= 87.5f * delta
 
 		if (playerPos.x < -playerSize.x)
 		{
