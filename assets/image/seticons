@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#
+# Converts the icon to the various required sizes
+#
+
+if [ "$#" -ne 1 ]; then
+  echo "usage: seticons <original icon>"
+  exit 1
+fi
+
+icon=$1
+
+if [ ! -f "$icon" ]; then
+  echo "no such file: $icon"
+  exit 1
+fi
+
+scale_file() {
+  echo "$2"
+  magick convert "$icon" -scale "$1" "../../$2"
+}
+
+# Android
+scale_file "48" "android/res/drawable-mdpi/ic_launcher.png"
+scale_file "72" "android/res/drawable-hdpi/ic_launcher.png"
+scale_file "96" "android/res/drawable-xhdpi/ic_launcher.png"
+scale_file "144" "android/res/drawable-xxhdpi/ic_launcher.png"
+scale_file "512" "android/ic_launcher-web.png"
+
+# iOS
+contents="../../ios/data/Media.xcassets/AppIcon.appiconset/Contents.json"
+readarray -t sizes <<<"$(jq -r '.images[].size' <"$contents")"
+readarray -t filenames <<<"$(jq -r '.images[].filename' <"$contents")"
+for i in "${!sizes[@]}"; do
+  scale_file "${sizes[$i]}" "ios/data/Media.xcassets/AppIcon.appiconset/${filenames[$i]}"
+done
