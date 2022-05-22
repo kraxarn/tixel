@@ -12,6 +12,5 @@ fun main()
 		setTitle("Tixel")
 		setWindowedMode(1280, 720)
 		setWindowIcon("image/icon.png")
-		setForegroundFPS(60)
 	})
 }
