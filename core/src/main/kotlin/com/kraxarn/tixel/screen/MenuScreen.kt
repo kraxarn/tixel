@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
@@ -38,6 +39,7 @@ class MenuScreen : KtxScreen
 	private val arrow = Image(skin, MenuSkin.arrow)
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
+	private val debug = Label("...", skin, MenuSkin.debug)
 
 	private val playerAtlas = TextureAtlas("atlas/player.atlas".toInternalFile())
 	private val player = Animation(0.15F, playerAtlas.findRegions("running"))
@@ -72,6 +74,11 @@ class MenuScreen : KtxScreen
 			stage += arrow
 		}
 
+		debug.x = 16f
+		debug.y = stage.height - 32f
+		debug.setAlignment(Align.topLeft)
+		stage += debug
+
 		Gdx.input.inputProcessor = stage
 
 		resetPlayerPosition()
@@ -80,6 +87,8 @@ class MenuScreen : KtxScreen
 	override fun render(delta: Float)
 	{
 		ScreenUtils.clear(Colors.background)
+
+		debug.setText(getDebugText())
 
 		updateArrow()
 		updatePlayer(delta)
@@ -139,6 +148,15 @@ class MenuScreen : KtxScreen
 		batch.use {
 			it.draw(player.getKeyFrame(playerTime, true), playerPos, playerSize)
 		}
+	}
+
+	private fun getDebugText(): String
+	{
+		return String.format(
+			"Debug Mode\nFPS: %d\nDelta: %.2f",
+			Gdx.graphics.framesPerSecond,
+			Gdx.graphics.deltaTime,
+		)
 	}
 
 	private fun resetPlayerPosition()

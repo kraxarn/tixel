@@ -17,6 +17,9 @@ class MenuSkin : Skin()
 		add("default", LabelStyle(menuFont, Colors.foreground))
 		add("default", TextButtonStyle(null, null, null, menuFont))
 
+		val debugFont = BitmapFont("font/debug.fnt".toInternalFile())
+		add(debug, LabelStyle(debugFont, Colors.foreground))
+
 		add(arrow, Texture("image/arrow.png".toInternalFile()))
 		add(player, TextureAtlas("atlas/player.atlas".toInternalFile()))
 	}
@@ -25,5 +28,6 @@ class MenuSkin : Skin()
 	{
 		const val arrow = "arrow"
 		const val player = "player"
+		const val debug = "debug"
 	}
 }
