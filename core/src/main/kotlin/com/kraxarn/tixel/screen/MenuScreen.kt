@@ -158,12 +158,13 @@ class MenuScreen : KtxScreen
 
 	private fun resetPlayerPosition()
 	{
-		val screenHeight = stage.viewport.screenHeight
-		val min = (screenHeight * 0.05f).toInt()
-		val max = (screenHeight * 0.95f).toInt()
-
-		val screenWidth = stage.viewport.screenWidth
-		playerPos.set(screenWidth.toFloat(), Random.Default.nextInt(min, max).toFloat())
+		playerPos.set(
+			stage.viewport.worldWidth,
+			Random.Default.nextInt(
+				(playerSize.y).toInt(),
+				(stage.viewport.worldHeight - playerSize.y).toInt(),
+			).toFloat(),
+		)
 	}
 
 	override fun resize(width: Int, height: Int)
