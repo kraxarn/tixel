@@ -11,7 +11,6 @@ fun main()
 	Lwjgl3Application(Game(), Lwjgl3ApplicationConfiguration().apply {
 		setTitle("Tixel")
 		setWindowedMode(1280, 720)
-		setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
 		setWindowIcon("image/icon.png")
 		setForegroundFPS(60)
 	})
