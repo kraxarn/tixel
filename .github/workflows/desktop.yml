@@ -23,5 +23,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{steps.artifact.outputs.filename}}
+          name: tixel-desktop
           path: ./lwjgl3/build/libs/tixel-*.jar
