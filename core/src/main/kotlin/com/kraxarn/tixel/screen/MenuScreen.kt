@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.ScreenUtils
-import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.kraxarn.tixel.Colors
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.skin.MenuSkin
@@ -24,7 +24,7 @@ class MenuScreen : KtxScreen
 {
 	private val batch = SpriteBatch()
 
-	private val stage = Stage(ScreenViewport())
+	private val stage = Stage(ExtendViewport(1280F, 720F))
 	private val skin = MenuSkin()
 	private val layout = Table(skin)
 
