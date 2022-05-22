@@ -159,10 +159,10 @@ class MenuScreen : KtxScreen
 	private fun resetPlayerPosition()
 	{
 		playerPos.set(
-			stage.viewport.worldWidth,
+			stage.width,
 			Random.Default.nextInt(
 				(playerSize.y).toInt(),
-				(stage.viewport.worldHeight - playerSize.y).toInt(),
+				(stage.height - playerSize.y).toInt(),
 			).toFloat(),
 		)
 	}
