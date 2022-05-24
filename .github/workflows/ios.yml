@@ -18,7 +18,7 @@ jobs:
           cache: gradle
 
       - name: Build
-        run: ./gradlew ios:createIPA
+        run: ./gradlew ios:createIPA --warning-mode all
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
