@@ -130,15 +130,10 @@ class MenuScreen : KtxScreen
 				arrow.y = getArrowY()
 			}
 		}
-		else if (arrow.x <= arrowMin)
+		else if (!arrow.hasActions())
 		{
-			arrowDirection = Direction.RIGHT
-			arrow += moveTo(arrowMax, arrow.y, arrowDuration, getArrowInterpolation())
-		}
-		else if (arrow.x >= arrowMax)
-		{
-			arrowDirection = Direction.LEFT
-			arrow += moveTo(arrowMin, arrow.y, arrowDuration, getArrowInterpolation())
+			arrowDirection = if (arrowDirection == Direction.RIGHT) Direction.LEFT else Direction.RIGHT
+			arrow += moveTo(getArrowX(), arrow.y, arrowDuration, getArrowInterpolation())
 		}
 	}
 
