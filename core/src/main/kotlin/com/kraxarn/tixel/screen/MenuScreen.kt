@@ -14,11 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Json
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.kraxarn.tixel.Colors
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.draw
+import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.skins.MenuSkin
 import ktx.actors.onClick
 import ktx.actors.plusAssign
@@ -26,10 +28,15 @@ import ktx.app.KtxScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import ktx.graphics.use
+import ktx.json.fromJson
+import ktx.log.logger
 import kotlin.random.Random
+import kotlin.system.measureTimeMillis
 
 class MenuScreen : KtxScreen
 {
+	private val log = logger<MenuScreen>()
+
 	private val stage = Stage(ExtendViewport(1280F, 720F))
 	private val skin = MenuSkin()
 	private val layout = Table(skin)
@@ -180,7 +187,16 @@ class MenuScreen : KtxScreen
 		}
 	}
 
-	private fun startGame(): Unit = TODO()
+	private fun startGame()
+	{
+		log.info {
+			val level: Level
+			val ms = measureTimeMillis {
+				level = Json().fromJson("level/1a.json".toInternalFile())
+			}
+			"Loaded level \"${level.name}\" in $ms ms"
+		}
+	}
 
 	private fun exitGame() = Gdx.app.exit()
 
