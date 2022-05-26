@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -24,7 +26,6 @@ import ktx.app.KtxScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import ktx.graphics.use
-import kotlin.math.abs
 import kotlin.random.Random
 
 class MenuScreen : KtxScreen
@@ -46,6 +47,9 @@ class MenuScreen : KtxScreen
 
 	private var current = 0
 	private var arrowDirection = Direction.RIGHT
+	private val arrowMin = 64f
+	private val arrowMax = 82f
+	private val arrowDuration = 0.4f
 
 	init
 	{
@@ -64,7 +68,7 @@ class MenuScreen : KtxScreen
 
 		if (!Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen))
 		{
-			arrow.x = 76F
+			arrow.x = arrowMax
 			stage += arrow
 		}
 
@@ -93,6 +97,8 @@ class MenuScreen : KtxScreen
 
 	private fun updateArrow()
 	{
+		val previous = current
+
 		if (Gdx.input.isKeyJustPressed(Keys.UP))
 		{
 			current = 0
@@ -111,30 +117,56 @@ class MenuScreen : KtxScreen
 			return
 		}
 
-		arrow.y = when (current)
+		if (current != previous)
 		{
-			0 -> startGame.y
-			1 -> exitGame.y
-			else -> 0F
-		} + startGame.height / 2 - arrow.height / 2
-
-		val offset = abs(arrow.x - 82F)
-		if (arrowDirection == Direction.LEFT)
-		{
-			arrow.moveBy(-0.5F - (offset / 10F), 0F)
-		}
-		else
-		{
-			arrow.moveBy(0.5F + (offset / 10F), 0F)
+			arrow.clearActions()
+			arrow += moveTo(getArrowX(), getArrowY(), arrowDuration / 2f, Interpolation.circle)
 		}
 
-		if (arrow.x <= 64)
+		if (arrow.y <= 0)
+		{
+			if (startGame.y > 0)
+			{
+				arrow.y = getArrowY()
+			}
+		}
+		else if (arrow.x <= arrowMin)
 		{
 			arrowDirection = Direction.RIGHT
+			arrow += moveTo(arrowMax, arrow.y, arrowDuration, getArrowInterpolation())
 		}
-		else if (arrow.x >= 82)
+		else if (arrow.x >= arrowMax)
 		{
 			arrowDirection = Direction.LEFT
+			arrow += moveTo(arrowMin, arrow.y, arrowDuration, getArrowInterpolation())
+		}
+	}
+
+	private fun getArrowY(): Float
+	{
+		return when (current)
+		{
+			0 -> startGame
+			1 -> exitGame
+			else -> return 0f
+		}.y + startGame.height / 2 - arrow.height / 2
+	}
+
+	private fun getArrowInterpolation(): Interpolation
+	{
+		return when (arrowDirection)
+		{
+			Direction.LEFT -> Interpolation.circleOut
+			Direction.RIGHT -> Interpolation.circleIn
+		}
+	}
+
+	private fun getArrowX(): Float
+	{
+		return when (arrowDirection)
+		{
+			Direction.LEFT -> arrowMin
+			Direction.RIGHT -> arrowMax
 		}
 	}
 
