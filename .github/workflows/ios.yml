@@ -18,10 +18,4 @@ jobs:
           cache: gradle
 
       - name: Build
-        run: ./gradlew ios:createIPA --warning-mode all
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: tixel-ios
-          path: ./ios/build/*
+        run: ./gradlew ios:build
