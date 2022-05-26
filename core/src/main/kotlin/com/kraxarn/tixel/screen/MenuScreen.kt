@@ -49,11 +49,8 @@ class MenuScreen : KtxScreen
 
 	init
 	{
-		startGame.onClick {
-			TODO()
-		}
-
-		exitGame.onClick { Gdx.app.exit() }
+		startGame.onClick { startGame() }
+		exitGame.onClick { exitGame() }
 
 		layout.debug = true
 		layout.setFillParent(true)
@@ -104,6 +101,15 @@ class MenuScreen : KtxScreen
 		{
 			current = 1
 		}
+		else if (Gdx.input.isKeyJustPressed(Keys.ENTER))
+		{
+			when (current)
+			{
+				0 -> startGame()
+				1 -> exitGame()
+			}
+			return
+		}
 
 		arrow.y = when (current)
 		{
@@ -146,6 +152,10 @@ class MenuScreen : KtxScreen
 			it.draw(player.getKeyFrame(playerTime, true), playerPos, playerSize)
 		}
 	}
+
+	private fun startGame(): Unit = TODO()
+
+	private fun exitGame() = Gdx.app.exit()
 
 	private fun getDebugText(): String
 	{
