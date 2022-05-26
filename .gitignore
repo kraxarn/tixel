@@ -18,6 +18,7 @@ android/libs/x86_64/
 android/gen/
 local.properties
 com_crashlytics_export_strings.xml
+*.jks
 
 ## GWT:
 war/
