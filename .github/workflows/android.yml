@@ -17,7 +17,16 @@ jobs:
           java-version: 11
           cache: gradle
 
+      - name: Prepare keystore
+        env:
+          KEYSTORE: ${{secrets.KEYSTORE}}
+        run: echo -n "$KEYSTORE" | base64 -d > "android/release.jks"
+
       - name: Build
+        env:
+          STORE_PASSWORD: ${{secrets.STORE_PASSWORD}}
+          KEY_ALIAS: ${{KEY_ALIAS}}
+          KEY_PASSWORD: ${{KEY_PASSWORD}}
         run: ./gradlew android:assembleRelease
 
       - name: Upload artifact
