@@ -1,4 +1,4 @@
-package com.kraxarn.tixel.screen
+package com.kraxarn.tixel.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input

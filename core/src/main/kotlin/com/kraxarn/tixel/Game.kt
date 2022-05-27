@@ -1,6 +1,6 @@
 package com.kraxarn.tixel
 
-import com.kraxarn.tixel.screen.MenuScreen
+import com.kraxarn.tixel.screens.MenuScreen
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 
