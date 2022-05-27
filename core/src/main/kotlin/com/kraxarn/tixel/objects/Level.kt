@@ -1,6 +1,7 @@
 package com.kraxarn.tixel.objects
 
 import com.badlogic.gdx.math.Vector2
+import com.kraxarn.tixel.enums.Tile
 import com.kraxarn.tixel.extensions.times
 
 /**
@@ -15,6 +16,11 @@ class Level(data: LevelData)
 
 	val gemCount = data.getGemCount()
 	val spawn = data.getSpawn() ?: Vector2.Zero
+
+	fun setTile(x: Int, y: Int, tile: Tile)
+	{
+		map[y][x] = tile.id
+	}
 
 	val safeSpawn: Vector2
 		get()
