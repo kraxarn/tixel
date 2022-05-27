@@ -1,52 +1,20 @@
 package com.kraxarn.tixel.objects
 
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.Json
-import com.badlogic.gdx.utils.JsonValue
-import com.kraxarn.tixel.enums.Tile
 import com.kraxarn.tixel.extensions.times
-import ktx.json.readArrayValue
-import ktx.json.readValue
 
-class Level(
-	var name: String = "",
-	var tileset: String = "",
-	var music: String = "",
-	var map: List<List<Int>> = emptyList(),
-) : Json.Serializable
+/**
+ * Loaded level
+ */
+class Level(data: LevelData)
 {
-	val gemCount: Int = getTotalGemCount()
-	private val spawn: Vector2 = getSpawn() ?: Vector2.Zero
+	val name = data.name
+	val tileset = data.tileset
+	val music = data.music
+	val map = data.map
 
-	override fun read(json: Json, jsonData: JsonValue)
-	{
-		name = json.readValue(jsonData, "name")
-		tileset = json.readValue(jsonData, "tileset")
-		music = json.readValue(jsonData, "music")
-		map = json.readArrayValue(jsonData, "map")
-	}
-
-	override fun write(json: Json)
-	{
-		throw UnsupportedOperationException("Levels cannot be written")
-	}
-
-	private fun getTotalGemCount(): Int = map.flatten().count { it == Tile.GEM.id }
-
-	private fun getSpawn(): Vector2?
-	{
-		for (y in 0 until map.count())
-		{
-			for (x in 0 until map[y].count())
-			{
-				if (map[y][x] == Tile.SPAWN.id)
-				{
-					return Vector2(x.toFloat(), y.toFloat())
-				}
-			}
-		}
-		return null
-	}
+	val gemCount = data.getGemCount()
+	val spawn = data.getSpawn() ?: Vector2.Zero
 
 	val safeSpawn: Vector2
 		get()

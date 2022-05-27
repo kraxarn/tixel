@@ -194,7 +194,7 @@ class MenuScreen : KtxScreen
 		log.info {
 			val level: Level
 			val ms = measureTimeMillis {
-				level = Json().fromJson("level/1a.json".toInternalFile())
+				level = Level(Json().fromJson("level/1a.json".toInternalFile()))
 			}
 			"Loaded level \"${level.name}\" in $ms ms"
 		}
