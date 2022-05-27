@@ -14,7 +14,7 @@ class LevelData(
 	var name: String = "",
 	var tileset: String = "",
 	var music: String = "",
-	var map: List<List<Int>> = emptyList(),
+	var map: MutableList<MutableList<Int>> = mutableListOf(),
 ) : Json.Serializable
 {
 	override fun read(json: Json, jsonData: JsonValue)
