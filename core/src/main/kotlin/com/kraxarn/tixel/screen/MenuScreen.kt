@@ -160,6 +160,7 @@ class MenuScreen : KtxScreen
 		{
 			Direction.LEFT -> Interpolation.circleOut
 			Direction.RIGHT -> Interpolation.circleIn
+			else -> throw IllegalStateException()
 		}
 	}
 
@@ -169,6 +170,7 @@ class MenuScreen : KtxScreen
 		{
 			Direction.LEFT -> arrowMin
 			Direction.RIGHT -> arrowMax
+			else -> throw IllegalStateException()
 		}
 	}
 
