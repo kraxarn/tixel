@@ -15,7 +15,7 @@ class Level(
 	var map: List<List<Int>> = emptyList(),
 ) : Json.Serializable
 {
-	private val gemCount: Int = getGemCount()
+	val gemCount: Int = getTotalGemCount()
 	private val spawn: Vector2 = getSpawn() ?: Vector2.Zero
 
 	override fun read(json: Json, jsonData: JsonValue)
@@ -31,7 +31,7 @@ class Level(
 		throw UnsupportedOperationException("Levels cannot be written")
 	}
 
-	private fun getGemCount(): Int = map.flatten().count { it == Tile.GEM.id }
+	private fun getTotalGemCount(): Int = map.flatten().count { it == Tile.GEM.id }
 
 	private fun getSpawn(): Vector2?
 	{
