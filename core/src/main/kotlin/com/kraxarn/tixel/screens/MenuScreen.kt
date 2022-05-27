@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Json
-import com.badlogic.gdx.utils.ScreenUtils
-import com.kraxarn.tixel.Colors
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.draw
 import com.kraxarn.tixel.objects.Level
@@ -86,7 +84,7 @@ class MenuScreen : Screen()
 
 	override fun render(delta: Float)
 	{
-		ScreenUtils.clear(Colors.background)
+		super.render(delta)
 
 		debug.setText(getDebugText())
 
