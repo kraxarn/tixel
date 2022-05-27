@@ -196,7 +196,7 @@ class MenuScreen : KtxScreen
 			val ms = measureTimeMillis {
 				level = Level(Json().fromJson("level/1a.json".toInternalFile()))
 			}
-			"Loaded level \"${level.name}\" in $ms ms"
+			"Loaded level \"${level.name}\" (${level.gemCount} gems) in $ms ms"
 		}
 	}
 
