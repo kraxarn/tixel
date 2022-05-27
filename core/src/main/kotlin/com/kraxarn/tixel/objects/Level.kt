@@ -35,9 +35,9 @@ class Level(
 
 	private fun getSpawn(): Vector2?
 	{
-		for (y in 0..map.count())
+		for (y in 0 until map.count())
 		{
-			for (x in 0..map[y].count())
+			for (x in 0 until map[y].count())
 			{
 				if (map[y][x] == Tile.SPAWN.id)
 				{
