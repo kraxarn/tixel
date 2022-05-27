@@ -1,6 +1,6 @@
 package com.kraxarn.tixel.objects
 
-object Tile
+object Tiles
 {
 	/**
 	 * Maximum number of tiles horizontally
