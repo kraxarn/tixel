@@ -28,9 +28,7 @@ class Level(
 
 	override fun write(json: Json)
 	{
-		json.writeValue("name", name)
-		json.writeValue("tileset", tileset)
-		json.writeValue("music", music)
+		throw UnsupportedOperationException("Levels cannot be written")
 	}
 
 	private fun getGemCount(): Int = map.flatten().count { it == Tile.GEM.id }
