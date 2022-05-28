@@ -47,4 +47,24 @@ class LevelData(
 
 		return null
 	}
+
+	fun getMap(): Map
+	{
+		val tileIds = Tile.values().associateBy { it.id }
+		val levelMap = Map()
+
+		for (x in 0 until map.count())
+		{
+			for (y in 0 until map[x].count())
+			{
+				val tile = tileIds[map[x][y]]
+				if (tile != null && tile.id >= 0)
+				{
+					levelMap[x, y] = tile
+				}
+			}
+		}
+
+		return levelMap
+	}
 }

@@ -12,14 +12,14 @@ class Level(data: LevelData)
 	val name = data.name
 	val tileset = data.tileset
 	val music = data.music
-	val map = data.map
+	val map = data.getMap()
 
 	val gemCount = data.getGemCount()
 	val spawn = data.getSpawn() ?: Vector2.Zero
 
 	fun setTile(x: Int, y: Int, tile: Tile)
 	{
-		map[y][x] = tile.id
+		map[x, y] = tile
 	}
 
 	val safeSpawn: Vector2
