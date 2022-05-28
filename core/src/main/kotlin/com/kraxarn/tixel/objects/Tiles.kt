@@ -3,16 +3,6 @@ package com.kraxarn.tixel.objects
 object Tiles
 {
 	/**
-	 * Maximum number of tiles horizontally
-	 */
-	const val levelTilesWidth = 75;
-
-	/**
-	 * Maximum number of tiles vertically
-	 */
-	const val levelTilesHeight = 25;
-
-	/**
 	 * Size of each tile in image asset
 	 */
 	const val tilesetSize = 18;
