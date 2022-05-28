@@ -42,7 +42,7 @@ class Hud : Table(HudSkin())
 
 		add(coinText)
 		add(coinImage)
-		row().padTop(spacing)
+		row().space(spacing)
 
 		add(gemText)
 		add(gemImage)
