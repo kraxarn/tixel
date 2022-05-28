@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Json
 import com.kraxarn.tixel.entities.AnimatedSprite
 import com.kraxarn.tixel.entities.MenuArrow
 import com.kraxarn.tixel.entities.draw
+import com.kraxarn.tixel.enums.AtlasAnimation
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.*
 import com.kraxarn.tixel.objects.Level
@@ -38,7 +39,7 @@ class MenuScreen : Screen()
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
 	private val debug = Label("...", skin, MenuSkin.debug)
-	private val player = AnimatedSprite(0.15f, "atlas/player.atlas", "running")
+	private val player = AnimatedSprite(AtlasAnimation.PLAYER_RUNNING)
 
 	private var current = 0
 
