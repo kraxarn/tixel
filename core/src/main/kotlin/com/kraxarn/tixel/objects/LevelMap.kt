@@ -9,7 +9,7 @@ class LevelMap
 {
 	private val tiles = Array(WIDTH) { Array(HEIGHT) { Tile.NONE } }
 
-	operator fun get(x: Int, y: Int): Tile = tiles[x][y]
+	operator fun get(x: Int, y: Int) = tiles[x][y]
 
 	operator fun set(x: Int, y: Int, tile: Tile)
 	{
