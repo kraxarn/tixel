@@ -34,11 +34,11 @@ class LevelData(
 
 	fun getSpawn(): Vector2?
 	{
-		for (y in 0 until map.count())
+		for (x in 0 until map.count())
 		{
-			for (x in 0 until map[y].count())
+			for (y in 0 until map[x].count())
 			{
-				if (map[y][x] == Tile.SPAWN.id)
+				if (map[x][y] == Tile.SPAWN.id)
 				{
 					return Vector2(x.toFloat(), y.toFloat())
 				}
