@@ -3,8 +3,6 @@ package com.kraxarn.tixel.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.Input.Keys
-import com.badlogic.gdx.graphics.g2d.Animation
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
@@ -14,8 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Json
+import com.kraxarn.tixel.entities.AnimatedSprite
+import com.kraxarn.tixel.entities.Hud
+import com.kraxarn.tixel.entities.draw
 import com.kraxarn.tixel.enums.Direction
-import com.kraxarn.tixel.extensions.draw
+import com.kraxarn.tixel.extensions.*
 import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.skins.MenuSkin
 import ktx.actors.onClick
@@ -38,12 +39,7 @@ class MenuScreen : Screen()
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
 	private val debug = Label("...", skin, MenuSkin.debug)
-
-	private val playerAtlas = TextureAtlas("atlas/player.atlas".toInternalFile())
-	private val player = Animation(0.15F, playerAtlas.findRegions("running"))
-	private var playerTime = 0F
-	private var playerPos = Vector2()
-	private val playerSize = Vector2(72f, 72f)
+	private val player = AnimatedSprite(0.15f, "atlas/player.atlas", "running")
 
 	private var current = 0
 	private var arrowDirection = Direction.RIGHT
@@ -79,6 +75,7 @@ class MenuScreen : Screen()
 
 		Gdx.input.inputProcessor = stage
 
+		player.resize(72f)
 		resetPlayerPosition()
 	}
 
@@ -169,16 +166,15 @@ class MenuScreen : Screen()
 
 	private fun updatePlayer(delta: Float)
 	{
-		playerTime += delta
-		playerPos.x -= 87.5f * delta
+		player.move(-87.5f * delta, 0f)
 
-		if (playerPos.x < -playerSize.x)
+		if (player.x < -player.width)
 		{
 			resetPlayerPosition()
 		}
 
 		stage.batch.use {
-			it.draw(player.getKeyFrame(playerTime, true), playerPos, playerSize)
+			it.draw(player, delta)
 		}
 	}
 
@@ -206,13 +202,12 @@ class MenuScreen : Screen()
 
 	private fun resetPlayerPosition()
 	{
-		playerPos.set(
-			stage.width,
-			Random.Default.nextInt(
-				(playerSize.y).toInt(),
-				(stage.height - playerSize.y).toInt(),
-			).toFloat(),
-		)
+		val y = Random.Default.nextInt(
+			player.height.toInt(),
+			(stage.height - player.height).toInt(),
+		).toFloat()
+
+		player moveTo Vector2(stage.width, y)
 	}
 
 	override fun dispose()
