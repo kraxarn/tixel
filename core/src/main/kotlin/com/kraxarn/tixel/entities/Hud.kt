@@ -6,22 +6,31 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.kraxarn.tixel.enums.PlayerSpeedModifier
 import com.kraxarn.tixel.enums.Tile
+import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.skins.HudSkin
 import ktx.assets.toInternalFile
 
 class Hud : Table(HudSkin())
 {
+	private val state = State()
+
 	private val atlas = TextureAtlas("atlas/items.atlas".toInternalFile())
 	private val gemImage = Image(atlas.findRegion(Tile.GEM.id.toString()))
 	private val coinImage = Image(atlas.findRegion(Tile.COIN.id.toString()))
 
-	private val gemCount = Label("0/0", skin)
-	private val coinCount = Label("0", skin)
+	private val gemText = Label("0/0", skin)
+	private val coinText = Label("0", skin)
 
 	private val padding = 12f
 	private val spacing = 6f
 	private val scaling = 2f
+
+	val gemCount get() = state.gems
+	val coinCount get() = state.coins
+
+	var playerSpeedModifier = PlayerSpeedModifier.DEFAULT
 
 	init
 	{
@@ -31,12 +40,43 @@ class Hud : Table(HudSkin())
 		padTop(padding)
 		padRight(padding)
 
-		add(gemCount)
+		add(gemText)
 		add(gemImage)
 		row().padTop(spacing)
 
-		add(coinCount)
+		add(coinText)
 		add(coinImage)
+	}
+
+	override fun act(delta: Float)
+	{
+		gemText.isVisible = gemCount > 0
+		gemImage.isVisible = gemText.isVisible
+
+		super.act(delta)
+	}
+
+	fun update(level: Level)
+	{
+		gemText.setText("$gemCount/${level.gemCount}")
+		coinText.setText(coinCount.toString())
+	}
+
+	fun addCoin()
+	{
+		// TODO: Play coin sound
+		state.coins++
+	}
+
+	fun addGem()
+	{
+		// TODO: Play gem sound
+		state.gems++
+	}
+
+	fun kill()
+	{
+		TODO("Player cannot die")
 	}
 
 	private fun add(label: Label): Cell<Label>
