@@ -11,7 +11,7 @@ import ktx.assets.toInternalFile
 
 class AnimatedSprite(frameDuration: Float, path: String, region: String)
 	: Animation<AtlasRegion>(frameDuration, TextureAtlas(path.toInternalFile()).findRegions(region)),
-	Movable, Sizeable
+	Positionable, Sizeable
 {
 	var time = 0f
 

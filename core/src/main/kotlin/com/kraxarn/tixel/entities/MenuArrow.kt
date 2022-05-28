@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.skins.MenuSkin
 
-class MenuArrow(skin: MenuSkin) : Image(skin, MenuSkin.arrow), Movable
+class MenuArrow(skin: MenuSkin) : Image(skin, MenuSkin.arrow), Positionable
 {
 	override var position = Vector2(MAX_X, 0f)
 	var direction = Direction.RIGHT
