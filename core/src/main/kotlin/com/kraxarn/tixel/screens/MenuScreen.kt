@@ -52,7 +52,7 @@ class MenuScreen : Screen()
 
 		layout.add(startGame).align(Align.left)
 
-		layout.row().space(16F)
+		layout.row().space(32f)
 		layout.add(exitGame).align(Align.left)
 
 		stage += layout.padLeft(128F).align(Align.left)
