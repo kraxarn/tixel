@@ -164,11 +164,7 @@ class MenuScreen : Screen()
 
 	private fun resetPlayerPosition()
 	{
-		val y = Random.Default.nextInt(
-			player.height.toInt(),
-			(stage.height - player.height).toInt(),
-		).toFloat()
-
+		val y = Random.Default.nextFloat(player.height, stage.height - player.height)
 		player moveTo Vector2(stage.width, y)
 	}
 
