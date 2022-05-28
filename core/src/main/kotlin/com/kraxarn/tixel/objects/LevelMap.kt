@@ -5,7 +5,7 @@ import com.kraxarn.tixel.enums.Tile
 /**
  * Tiles in a level
  */
-class Map
+class LevelMap
 {
 	private val tiles = Array(height) { Array(width) { Tile.NONE } }
 

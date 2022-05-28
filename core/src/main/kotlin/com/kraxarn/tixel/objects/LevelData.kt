@@ -48,10 +48,10 @@ class LevelData(
 		return null
 	}
 
-	fun getMap(): Map
+	fun getLevelMap(): LevelMap
 	{
 		val tileIds = Tile.values().associateBy { it.id }
-		val levelMap = Map()
+		val levelMap = LevelMap()
 
 		for (x in 0 until map.count())
 		{
