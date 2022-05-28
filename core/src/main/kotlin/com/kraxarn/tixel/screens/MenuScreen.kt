@@ -6,12 +6,12 @@ import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Json
 import com.kraxarn.tixel.entities.AnimatedSprite
+import com.kraxarn.tixel.entities.DebugInfo
 import com.kraxarn.tixel.entities.MenuArrow
 import com.kraxarn.tixel.entities.draw
 import com.kraxarn.tixel.enums.AtlasAnimation
@@ -38,7 +38,7 @@ class MenuScreen : Screen()
 	private val arrow = MenuArrow(skin)
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
-	private val debug = Label("...", skin, MenuSkin.debug)
+	private val debug = DebugInfo(skin)
 	private val player = AnimatedSprite(AtlasAnimation.PLAYER_RUNNING)
 
 	private var current = 0
@@ -63,9 +63,7 @@ class MenuScreen : Screen()
 			stage += arrow
 		}
 
-		debug.x = 16f
 		debug.y = stage.height - 32f
-		debug.setAlignment(Align.topLeft)
 		stage += debug
 
 		Gdx.input.inputProcessor = stage
@@ -77,8 +75,6 @@ class MenuScreen : Screen()
 	override fun render(delta: Float)
 	{
 		super.render(delta)
-
-		debug.setText(getDebugText())
 
 		updateArrow()
 		updatePlayer(delta)
@@ -165,15 +161,6 @@ class MenuScreen : Screen()
 	}
 
 	private fun exitGame() = Gdx.app.exit()
-
-	private fun getDebugText(): String
-	{
-		return String.format(
-			"Debug Mode\nFPS: %d\nDelta: %.2f",
-			Gdx.graphics.framesPerSecond,
-			Gdx.graphics.deltaTime,
-		)
-	}
 
 	private fun resetPlayerPosition()
 	{
