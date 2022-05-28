@@ -17,11 +17,6 @@ class Level(data: LevelData)
 	val gemCount = data.getGemCount()
 	val spawn: Vector2 = data.getSpawn() ?: Vector2.Zero
 
-	fun setTile(x: Int, y: Int, tile: Tile)
-	{
-		map[x, y] = tile
-	}
-
 	val safeSpawn: Vector2
 		get()
 		{
