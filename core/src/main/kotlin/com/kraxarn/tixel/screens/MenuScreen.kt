@@ -48,7 +48,6 @@ class MenuScreen : Screen()
 		startGame.onClick { startGame() }
 		exitGame.onClick { exitGame() }
 
-		layout.debug = true
 		layout.setFillParent(true)
 
 		layout.add(startGame).align(Align.left)
