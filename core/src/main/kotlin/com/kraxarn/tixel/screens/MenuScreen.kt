@@ -6,14 +6,13 @@ import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Json
 import com.kraxarn.tixel.entities.AnimatedSprite
-import com.kraxarn.tixel.entities.Hud
+import com.kraxarn.tixel.entities.MenuArrow
 import com.kraxarn.tixel.entities.draw
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.*
@@ -35,17 +34,13 @@ class MenuScreen : Screen()
 	private val skin = MenuSkin()
 	private val layout = Table(skin)
 
-	private val arrow = Image(skin, MenuSkin.arrow)
+	private val arrow = MenuArrow(skin)
 	private val startGame = TextButton("Start game", skin)
 	private val exitGame = TextButton("Exit game", skin)
 	private val debug = Label("...", skin, MenuSkin.debug)
 	private val player = AnimatedSprite(0.15f, "atlas/player.atlas", "running")
 
 	private var current = 0
-	private var arrowDirection = Direction.RIGHT
-	private val arrowMin = 64f
-	private val arrowMax = 82f
-	private val arrowDuration = 0.4f
 
 	init
 	{
@@ -64,7 +59,6 @@ class MenuScreen : Screen()
 
 		if (!Gdx.input.isPeripheralAvailable(Input.Peripheral.MultitouchScreen))
 		{
-			arrow.x = arrowMax
 			stage += arrow
 		}
 
@@ -117,7 +111,7 @@ class MenuScreen : Screen()
 		if (current != previous)
 		{
 			arrow.clearActions()
-			arrow += moveTo(getArrowX(), getArrowY(), arrowDuration / 2f, Interpolation.circle)
+			arrow += moveTo(arrow.targetX, getArrowY(), MenuArrow.MOVE_DURATION, Interpolation.circle)
 		}
 
 		if (arrow.y <= 0)
@@ -129,8 +123,8 @@ class MenuScreen : Screen()
 		}
 		else if (!arrow.hasActions())
 		{
-			arrowDirection = if (arrowDirection == Direction.RIGHT) Direction.LEFT else Direction.RIGHT
-			arrow += moveTo(getArrowX(), arrow.y, arrowDuration, getArrowInterpolation())
+			arrow.direction = if (arrow.direction == Direction.RIGHT) Direction.LEFT else Direction.RIGHT
+			arrow += moveTo(arrow.targetX, arrow.y, MenuArrow.ANIMATION_DURATION, arrow.targetInterpolation)
 		}
 	}
 
@@ -142,26 +136,6 @@ class MenuScreen : Screen()
 			1 -> exitGame
 			else -> return 0f
 		}.y + startGame.height / 2 - arrow.height / 2
-	}
-
-	private fun getArrowInterpolation(): Interpolation
-	{
-		return when (arrowDirection)
-		{
-			Direction.LEFT -> Interpolation.circleOut
-			Direction.RIGHT -> Interpolation.circleIn
-			else -> throw IllegalStateException()
-		}
-	}
-
-	private fun getArrowX(): Float
-	{
-		return when (arrowDirection)
-		{
-			Direction.LEFT -> arrowMin
-			Direction.RIGHT -> arrowMax
-			else -> throw IllegalStateException()
-		}
 	}
 
 	private fun updatePlayer(delta: Float)
