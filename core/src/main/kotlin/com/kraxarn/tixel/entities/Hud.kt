@@ -40,12 +40,12 @@ class Hud : Table(HudSkin())
 		padTop(padding)
 		padRight(padding)
 
-		add(gemText)
-		add(gemImage)
-		row().padTop(spacing)
-
 		add(coinText)
 		add(coinImage)
+		row().padTop(spacing)
+
+		add(gemText)
+		add(gemImage)
 	}
 
 	override fun act(delta: Float)
