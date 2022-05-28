@@ -7,7 +7,7 @@ import com.kraxarn.tixel.enums.Tile
  */
 class LevelMap
 {
-	private val tiles = Array(HEIGHT) { Array(WIDTH) { Tile.NONE } }
+	private val tiles = Array(WIDTH) { Array(HEIGHT) { Tile.NONE } }
 
 	operator fun get(x: Int, y: Int): Tile = tiles[x][y]
 
