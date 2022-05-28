@@ -109,7 +109,7 @@ object Collision
 		{
 			Tile.EXIT ->
 			{
-				if (hud.totalGemCount == level.gemCount)
+				if (hud.gemCount == level.gemCount)
 				{
 					TODO("level switching not implemented yet")
 				}
