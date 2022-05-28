@@ -1,15 +1,18 @@
 package com.kraxarn.tixel.entities
 
 import com.badlogic.gdx.math.Interpolation
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.skins.MenuSkin
 
-class MenuArrow(skin: MenuSkin) : Image(skin, MenuSkin.arrow), Positionable
+class MenuArrow(skin: MenuSkin) : Image(skin, MenuSkin.arrow)
 {
-	override var position = Vector2(MAX_X, 0f)
 	var direction = Direction.RIGHT
+
+	init
+	{
+		x = MAX_X
+	}
 
 	val targetInterpolation: Interpolation
 		get() = when (direction)
