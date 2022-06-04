@@ -41,7 +41,7 @@ class Boss(private val player: Player) : AnimatedSprite(AtlasAnimation.ENEMY_MOV
 		flipX = x > 0
 	}
 
-	private fun hurt(): Boolean
+	fun hurt(): Boolean
 	{
 		// TODO: PLay hurt sound
 		health--

@@ -85,6 +85,11 @@ class Hud : Table(HudSkin())
 		state.isDead = false
 	}
 
+	fun reload()
+	{
+		state.gems = 0
+	}
+
 	private fun add(label: Label): Cell<Label>
 	{
 		return super.add(label)
