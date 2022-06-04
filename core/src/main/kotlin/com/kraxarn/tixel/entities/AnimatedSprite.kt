@@ -29,6 +29,13 @@ open class AnimatedSprite(animation: AtlasAnimation)
 
 	val horizontalDirection
 		get() = if (flipY) Direction.UP else Direction.DOWN
+
+	var frameIndex: Int
+		get() = getKeyFrameIndex(time)
+		set(value)
+		{
+			time = value * frameDuration
+		}
 }
 
 fun Batch.draw(sprite: AnimatedSprite, delta: Float)
