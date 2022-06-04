@@ -49,17 +49,12 @@ class Hud : Table(HudSkin())
 		add(gemImage)
 	}
 
-	override fun act(delta: Float)
+	fun update(level: Level?)
 	{
-		gemText.isVisible = gemCount > 0
+		gemText.isVisible = level != null && level.gemCount > 0
 		gemImage.isVisible = gemText.isVisible
 
-		super.act(delta)
-	}
-
-	fun update(level: Level)
-	{
-		gemText.setText("$gemCount/${level.gemCount}")
+		gemText.setText("$gemCount/${level?.gemCount ?: 0}")
 		coinText.setText(coinCount.toString())
 	}
 

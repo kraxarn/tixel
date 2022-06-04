@@ -15,6 +15,7 @@ import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.objects.LevelLoader
 import com.kraxarn.tixel.objects.LevelMap
 import com.kraxarn.tixel.objects.Tiles
+import ktx.actors.plusAssign
 import ktx.assets.toInternalFile
 import ktx.log.logger
 
@@ -36,12 +37,22 @@ class LevelScreen : Screen()
 	// Level switching
 	private var currentLevelIndex = -1
 
+	init
+	{
+		stage += hud
+	}
+
 	override fun render(delta: Float)
 	{
 		super.render(delta)
+
+		hud.update(level)
+
+		stage.act(delta)
+		stage.draw()
 	}
 
-	private fun load(index: Int)
+	fun load(index: Int)
 	{
 		val level = LevelLoader.get(index) ?: throw IllegalStateException("Invalid level index: $index")
 		this.level = level
@@ -60,6 +71,10 @@ class LevelScreen : Screen()
 		hud.reload()
 
 		// TODO: Level title
+
+		log.info {
+			"Loaded level $index (${level.name})"
+		}
 	}
 
 	private fun nextLevel()
