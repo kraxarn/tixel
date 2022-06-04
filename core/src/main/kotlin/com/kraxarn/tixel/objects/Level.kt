@@ -1,6 +1,7 @@
 package com.kraxarn.tixel.objects
 
 import com.badlogic.gdx.math.Vector2
+import com.kraxarn.tixel.enums.Tile
 import com.kraxarn.tixel.extensions.times
 
 /**
@@ -23,4 +24,15 @@ class Level(data: LevelData)
 			playerPosition.y -= Tiles.tileSize * 0.5f
 			return playerPosition
 		}
+
+	fun forEach(iter: (x: Int, y: Int, tile: Tile) -> Unit)
+	{
+		for (x in 0 until LevelMap.WIDTH)
+		{
+			for (y in 0 until LevelMap.HEIGHT)
+			{
+				iter(x, y, map[x, y])
+			}
+		}
+	}
 }
