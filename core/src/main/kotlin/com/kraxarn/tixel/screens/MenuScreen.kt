@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
-import com.badlogic.gdx.utils.Json
+import com.kraxarn.tixel.Game
 import com.kraxarn.tixel.entities.AnimatedSprite
 import com.kraxarn.tixel.entities.DebugInfo
 import com.kraxarn.tixel.entities.MenuArrow
@@ -17,19 +17,15 @@ import com.kraxarn.tixel.enums.AtlasAnimation
 import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.enums.Key
 import com.kraxarn.tixel.extensions.*
-import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.skins.MenuSkin
 import ktx.actors.onClick
 import ktx.actors.plusAssign
 import ktx.assets.disposeSafely
-import ktx.assets.toInternalFile
 import ktx.graphics.use
-import ktx.json.fromJson
 import ktx.log.logger
 import kotlin.random.Random
-import kotlin.system.measureTimeMillis
 
-class MenuScreen : Screen()
+class MenuScreen(private val game: Game) : Screen()
 {
 	private val log = logger<MenuScreen>()
 	private val skin = MenuSkin()
@@ -150,13 +146,8 @@ class MenuScreen : Screen()
 
 	private fun startGame()
 	{
-		log.info {
-			val level: Level
-			val ms = measureTimeMillis {
-				level = Level(Json().fromJson("level/1a.json".toInternalFile()))
-			}
-			"Loaded level \"${level.name}\" (${level.gemCount} gems) in $ms ms"
-		}
+		game.getScreen<LevelScreen>().load(0)
+		game.setScreen<LevelScreen>()
 	}
 
 	private fun exitGame() = Gdx.app.exit()
