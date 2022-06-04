@@ -25,7 +25,7 @@ object Collision
 	{
 		var collides = TileType.EMPTY
 		val playerPosition = playerRect.position
-		val playerTile = (playerPosition / Tiles.tileSize)
+		val playerTile = (playerPosition / Tiles.TILE_SIZE)
 
 		hud.playerSpeedModifier = PlayerSpeedModifier.DEFAULT
 
@@ -52,8 +52,8 @@ object Collision
 		val tileY = position.y.toInt()
 
 		val target = Rectangle()
-		target.width = Tiles.tileSize
-		target.height = Tiles.tileSize
+		target.width = Tiles.TILE_SIZE
+		target.height = Tiles.TILE_SIZE
 
 		for (x in tileX - offset..tileX + offset)
 		{
@@ -69,8 +69,8 @@ object Collision
 					continue
 				}
 
-				target.x = x * Tiles.tileSize
-				target.y = y * Tiles.tileSize
+				target.x = x * Tiles.TILE_SIZE
+				target.y = y * Tiles.TILE_SIZE
 				if (!(rect overlapsWith target))
 				{
 					continue
@@ -79,7 +79,7 @@ object Collision
 				val tile = level.map[x, y]
 				if (tile.type == TileType.TILE)
 				{
-					val tileSize = Tiles.tileSize * 0.9f
+					val tileSize = Tiles.TILE_SIZE * 0.9f
 					val tileRect = rect.copy()
 					tileRect.y += tileRect.height - tileSize
 					tileRect.height = tileSize

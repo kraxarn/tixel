@@ -20,8 +20,8 @@ class Level(data: LevelData)
 	val safeSpawn: Vector2
 		get()
 		{
-			val playerPosition = spawn * Tiles.tileSize
-			playerPosition.y -= Tiles.tileSize * 0.5f
+			val playerPosition = spawn * Tiles.TILE_SIZE
+			playerPosition.y -= Tiles.TILE_SIZE * 0.5f
 			return playerPosition
 		}
 
