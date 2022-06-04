@@ -5,15 +5,15 @@ object Tiles
 	/**
 	 * Size of each tile in image asset
 	 */
-	const val tilesetSize = 18;
+	const val TILESET_SIZE = 18;
 
 	/**
 	 * How much to scale each tile before displaying
 	 */
-	const val tileScale = 3f;
+	const val TILE_SCALE = 3f;
 
 	/**
 	 * Total tile size with scaling applied
 	 */
-	const val tileSize = tilesetSize * tileScale;
+	const val TILE_SIZE = TILESET_SIZE * TILE_SCALE;
 }
