@@ -19,6 +19,8 @@ open class AnimatedSprite(animation: AtlasAnimation)
 	var flipX = false
 	var flipY = false
 
+	var isPaused = false
+
 	override var position = Vector2()
 	override var size = this.getKeyFrame(0f).originalSize
 
@@ -31,7 +33,10 @@ open class AnimatedSprite(animation: AtlasAnimation)
 
 fun Batch.draw(sprite: AnimatedSprite, delta: Float)
 {
-	sprite.time += delta
+	if (!sprite.isPaused)
+	{
+		sprite.time += delta
+	}
 
 	val region = sprite.getKeyFrame(sprite.time, true)
 	val flipX = sprite.flipX != region.isFlipX
