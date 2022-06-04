@@ -23,15 +23,15 @@ class Player(hud: Hud) : AnimatedSprite(AtlasAnimation.PLAYER_RUNNING)
 
 	companion object
 	{
-		const val FRAME_DURATION = 0.15f
+		private const val FRAME_DURATION = 0.15f
 
-		const val MOVE_ACCELERATION = 1f
-		const val MOVE_DECELERATION = -0.4f
+		private const val MOVE_ACCELERATION = 1f
+		private const val MOVE_DECELERATION = -0.4f
 
-		const val JUMP_FORCE = -10f
-		const val GRAVITY = 0.4f
+		private const val JUMP_FORCE = -10f
+		private const val GRAVITY = 0.4f
 
-		const val SPEED_LIMIT = 7.5f
-		const val KILL_PLAIN = 2_000f
+		private const val SPEED_LIMIT = 7.5f
+		private const val KILL_PLAIN = 2_000f
 	}
 }
