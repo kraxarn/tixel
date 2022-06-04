@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.badlogic.gdx.math.Vector2
 import com.kraxarn.tixel.enums.AtlasAnimation
+import com.kraxarn.tixel.enums.Direction
 import com.kraxarn.tixel.extensions.draw
 import com.kraxarn.tixel.extensions.keyFrames
 import com.kraxarn.tixel.extensions.originalSize
@@ -20,6 +21,12 @@ open class AnimatedSprite(animation: AtlasAnimation)
 
 	override var position = Vector2()
 	override var size = this.getKeyFrame(0f).originalSize
+
+	val verticalDirection
+		get() = if (flipX) Direction.RIGHT else Direction.LEFT
+
+	val horizontalDirection
+		get() = if (flipY) Direction.UP else Direction.DOWN
 }
 
 fun Batch.draw(sprite: AnimatedSprite, delta: Float)
