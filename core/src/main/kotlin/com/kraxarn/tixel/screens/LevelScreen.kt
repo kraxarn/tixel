@@ -11,10 +11,7 @@ import com.kraxarn.tixel.enums.TileType
 import com.kraxarn.tixel.extensions.isFinal
 import com.kraxarn.tixel.extensions.overlapsWith
 import com.kraxarn.tixel.extensions.times
-import com.kraxarn.tixel.objects.Level
-import com.kraxarn.tixel.objects.LevelLoader
-import com.kraxarn.tixel.objects.LevelMap
-import com.kraxarn.tixel.objects.Tiles
+import com.kraxarn.tixel.objects.*
 import ktx.actors.plusAssign
 import ktx.assets.toInternalFile
 import ktx.log.logger
@@ -24,7 +21,7 @@ class LevelScreen : Screen()
 	private val log = logger<LevelScreen>()
 
 	// Level
-	private var level: Level? = null
+	private var level = Level(LevelData())
 	private var tiles: TextureAtlas? = null
 	private val items = TextureAtlas("atlas/items.atlas")
 
@@ -54,8 +51,7 @@ class LevelScreen : Screen()
 
 	fun load(index: Int)
 	{
-		val level = LevelLoader.get(index) ?: throw IllegalStateException("Invalid level index: $index")
-		this.level = level
+		level = LevelLoader.get(index) ?: throw IllegalStateException("Invalid level index: $index")
 		currentLevelIndex = index
 
 		boss = null
@@ -86,13 +82,13 @@ class LevelScreen : Screen()
 
 	private fun loadEntities()
 	{
-		level?.forEach { x, y, tile ->
+		level.forEach { x, y, tile ->
 			// Currently, there's only one entity
 			if (tile.type == TileType.ENTITY && tile == Tile.BOSS)
 			{
 				boss = Boss(player)
 				boss?.position = Vector2(x.toFloat(), y.toFloat()) * Tiles.TILE_SIZE
-				boss?.isLockY = level?.isFinal ?: false
+				boss?.isLockY = level.isFinal
 			}
 		}
 	}
@@ -109,7 +105,7 @@ class LevelScreen : Screen()
 			// Normal boss: Player always dies when touching
 			// Final boss: Boss takes damage if hit from above, otherwise, kill player
 
-			val isFinal = level?.isFinal ?: false
+			val isFinal = level.isFinal
 			if (!isFinal || player.speed.y <= 0)
 			{
 				hud.kill()
@@ -131,7 +127,7 @@ class LevelScreen : Screen()
 
 	private fun drawMap()
 	{
-		level?.forEach { x, y, tile ->
+		level.forEach { x, y, tile ->
 			if (tile.type == TileType.EMPTY)
 			{
 				return@forEach
@@ -148,7 +144,7 @@ class LevelScreen : Screen()
 			}
 			else if (tile.type == TileType.ITEM)
 			{
-				if (tile != Tile.EXIT || hud.gemCount == level?.gemCount)
+				if (tile != Tile.EXIT || hud.gemCount == level.gemCount)
 				{
 					// TODO: Cache this
 					val region = items.findRegion(tile.id.toString())
