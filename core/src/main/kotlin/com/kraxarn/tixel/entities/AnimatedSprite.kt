@@ -15,6 +15,9 @@ open class AnimatedSprite(animation: AtlasAnimation)
 {
 	var time = 0f
 
+	var flipX = false
+	var flipY = false
+
 	override var position = Vector2()
 	override var size = this.getKeyFrame(0f).originalSize
 }
@@ -22,5 +25,11 @@ open class AnimatedSprite(animation: AtlasAnimation)
 fun Batch.draw(sprite: AnimatedSprite, delta: Float)
 {
 	sprite.time += delta
-	this.draw(sprite.getKeyFrame(sprite.time, true), sprite.position, sprite.size)
+
+	val region = sprite.getKeyFrame(sprite.time, true)
+	val flipX = sprite.flipX != region.isFlipX
+	val flipY = sprite.flipY != region.isFlipY
+	region.flip(flipX, flipY)
+
+	this.draw(region, sprite.position, sprite.size)
 }
