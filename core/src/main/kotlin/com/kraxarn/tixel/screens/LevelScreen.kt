@@ -6,9 +6,11 @@ import com.kraxarn.tixel.entities.Boss
 import com.kraxarn.tixel.entities.Hud
 import com.kraxarn.tixel.entities.Pause
 import com.kraxarn.tixel.entities.Player
+import com.kraxarn.tixel.enums.Key
 import com.kraxarn.tixel.enums.Tile
 import com.kraxarn.tixel.enums.TileType
 import com.kraxarn.tixel.extensions.isFinal
+import com.kraxarn.tixel.extensions.isPressed
 import com.kraxarn.tixel.extensions.overlapsWith
 import com.kraxarn.tixel.extensions.times
 import com.kraxarn.tixel.objects.*
@@ -43,7 +45,21 @@ class LevelScreen : Screen()
 	{
 		super.render(delta)
 
+		// TODO: Camera stuff
+
+		player.update(level, pause.paused)
+		boss?.update(pause.paused)
+		updateEntities()
+		drawMap()
+
+		if (Key.PAUSE.isPressed)
+		{
+			pause.paused = !pause.paused
+		}
+
 		hud.update(level)
+		// TODO: Level title
+		pause.update(stage)
 
 		stage.act(delta)
 		stage.draw()
