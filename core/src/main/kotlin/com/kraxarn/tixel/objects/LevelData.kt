@@ -30,41 +30,43 @@ class LevelData(
 		throw UnsupportedOperationException("Levels cannot be written")
 	}
 
-	fun getGemCount(): Int = map.flatten().count { it == Tile.GEM.id }
+	val gemCount get() = map.flatten().count { it == Tile.GEM.id }
 
-	fun getSpawn(): Vector2?
-	{
-		for (x in 0 until map.count())
+	val spawn: Vector2?
+		get()
 		{
-			for (y in 0 until map[x].count())
+			for (x in 0 until map.count())
 			{
-				if (map[x][y] == Tile.SPAWN.id)
+				for (y in 0 until map[x].count())
 				{
-					return Vector2(x.toFloat(), y.toFloat())
+					if (map[x][y] == Tile.SPAWN.id)
+					{
+						return Vector2(x.toFloat(), y.toFloat())
+					}
 				}
 			}
+
+			return null
 		}
 
-		return null
-	}
-
-	fun getLevelMap(): LevelMap
-	{
-		val tileIds = Tile.values().associateBy { it.id }
-		val levelMap = LevelMap()
-
-		for (x in 0 until map.count())
+	val levelMap: LevelMap
+		get()
 		{
-			for (y in 0 until map[x].count())
+			val tileIds = Tile.values().associateBy { it.id }
+			val levelMap = LevelMap()
+
+			for (x in 0 until map.count())
 			{
-				val tile = tileIds[map[x][y]]
-				if (tile != null && tile.id >= 0)
+				for (y in 0 until map[x].count())
 				{
-					levelMap[x, y] = tile
+					val tile = tileIds[map[x][y]]
+					if (tile != null && tile.id >= 0)
+					{
+						levelMap[x, y] = tile
+					}
 				}
 			}
-		}
 
-		return levelMap
-	}
+			return levelMap
+		}
 }
