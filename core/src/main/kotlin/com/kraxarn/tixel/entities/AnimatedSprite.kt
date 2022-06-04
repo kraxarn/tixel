@@ -3,6 +3,7 @@ package com.kraxarn.tixel.entities
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.kraxarn.tixel.enums.AtlasAnimation
 import com.kraxarn.tixel.enums.Direction
@@ -23,6 +24,8 @@ open class AnimatedSprite(animation: AtlasAnimation)
 
 	override var position = Vector2()
 	override var size = this.getKeyFrame(0f).originalSize
+
+	val rect get() = Rectangle(position.x, position.y, size.x, size.y)
 
 	val verticalDirection
 		get() = if (flipX) Direction.RIGHT else Direction.LEFT
