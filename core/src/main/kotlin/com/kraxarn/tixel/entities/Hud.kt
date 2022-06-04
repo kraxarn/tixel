@@ -29,6 +29,7 @@ class Hud : Table(HudSkin())
 
 	val gemCount get() = state.gems
 	val coinCount get() = state.coins
+	val isDead get() = state.isDead
 
 	var playerSpeedModifier = PlayerSpeedModifier.DEFAULT
 
@@ -77,6 +78,11 @@ class Hud : Table(HudSkin())
 	fun kill()
 	{
 		TODO("Player cannot die")
+	}
+
+	fun respawn()
+	{
+		state.isDead = false
 	}
 
 	private fun add(label: Label): Cell<Label>
