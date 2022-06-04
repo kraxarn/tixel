@@ -2,7 +2,6 @@ package com.kraxarn.tixel.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo
@@ -16,6 +15,7 @@ import com.kraxarn.tixel.entities.MenuArrow
 import com.kraxarn.tixel.entities.draw
 import com.kraxarn.tixel.enums.AtlasAnimation
 import com.kraxarn.tixel.enums.Direction
+import com.kraxarn.tixel.enums.Key
 import com.kraxarn.tixel.extensions.*
 import com.kraxarn.tixel.objects.Level
 import com.kraxarn.tixel.skins.MenuSkin
@@ -86,15 +86,15 @@ class MenuScreen : Screen()
 	{
 		val previous = current
 
-		if (Gdx.input.isKeyJustPressed(Keys.UP))
+		if (Key.UP.isJustPressed)
 		{
 			current = 0
 		}
-		else if (Gdx.input.isKeyJustPressed(Keys.DOWN))
+		else if (Key.DOWN.isJustPressed)
 		{
 			current = 1
 		}
-		else if (Gdx.input.isKeyJustPressed(Keys.ENTER))
+		else if (Key.ENTER.isJustPressed)
 		{
 			when (current)
 			{
