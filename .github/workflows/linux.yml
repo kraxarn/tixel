@@ -1,4 +1,4 @@
-name: Desktop
+name: Linux
 
 on:
   push:
@@ -17,11 +17,14 @@ jobs:
           java-version: 11
           cache: gradle
 
+      - name: Install dependencies
+        run: sudo apt -y install freeglut3-dev libopenal-dev
+
       - name: Build
-        run: ./gradlew lwjgl3:jar
+        run: ./gradlew linkReleaseExecutableLinuxX64
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: tixel-desktop
-          path: ./lwjgl3/build/libs/tixel-*.jar
+          name: tixel-linux
+          path: ./build/bin/linuxX64/releaseExecutable/
