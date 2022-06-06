@@ -18,10 +18,10 @@ jobs:
           cache: gradle
 
       - name: Build
-        run: ./gradlew linkReleaseExecutableMacosX64
+        run: ./gradlew packageMacosX64AppRelease
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: tixel-macos
-          path: ./build/bin/macosX64/releaseExecutable/
+          path: ./build/tixel-release.app
