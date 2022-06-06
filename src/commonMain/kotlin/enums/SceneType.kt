@@ -1,4 +1,4 @@
-package com.kraxarn.tixel.enums
+package enums
 
 enum class SceneType
 {
